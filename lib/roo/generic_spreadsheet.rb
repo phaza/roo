@@ -155,10 +155,13 @@ class GenericSpreadsheet
       file = File.open(filename,"w") # do |file|
       write_csv_content(file,sheet)
       file.close
+      return true
     else
-      write_csv_content(STDOUT,sheet)
+      sio = StringIO.new
+      write_csv_content(sio,sheet)
+      sio.rewind
+      return sio.read
     end
-    true
   end
 
   # find a row either by row number or a condition
